@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="HeatMonitorLoggerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Generator">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="GeneratorName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Latitude" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="longitude" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="GeneratorLogs" Relationship="Self.FK_GeneratorLog_Generator" FromRole="Generator" ToRole="GeneratorLog" />
+  </EntityType>
+  <EntityType Name="GeneratorLog">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Temprature" Type="Int32" />
+    <Property Name="FK_GeneratorId" Type="Int64" />
+    <Property Name="Logging_date" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Generator" Relationship="Self.FK_GeneratorLog_Generator" FromRole="GeneratorLog" ToRole="Generator" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK_GeneratorLog_Generator">
+    <End Role="Generator" Type="Self.Generator" Multiplicity="0..1" />
+    <End Role="GeneratorLog" Type="Self.GeneratorLog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Generator">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="GeneratorLog">
+        <PropertyRef Name="FK_GeneratorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="HeatMonitorLoggerEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Generators" EntityType="Self.Generator" />
+    <EntitySet Name="GeneratorLogs" EntityType="Self.GeneratorLog" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <AssociationSet Name="FK_GeneratorLog_Generator" Association="Self.FK_GeneratorLog_Generator">
+      <End Role="Generator" EntitySet="Generators" />
+      <End Role="GeneratorLog" EntitySet="GeneratorLogs" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
