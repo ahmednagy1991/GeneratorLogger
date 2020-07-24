@@ -1,0 +1,48 @@
+﻿@model GeneratorLogger.Database.GeneratorLog
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>GeneratorLog</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Temprature)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Temprature)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Logging_date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Logging_date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Generator.GeneratorName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Generator.GeneratorName)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

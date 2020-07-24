@@ -1,0 +1,44 @@
+﻿@model IEnumerable<GeneratorLogger.Database.GeneratorLog>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<p>
+    @*@Html.ActionLink("Create New", "Create")*@
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Temprature)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Logging_date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Generator.GeneratorName)
+        </th>
+      
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Temprature)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Logging_date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Generator.GeneratorName)
+        </td>
+        <td>
+            @*@Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })*@
+        </td>
+    </tr>
+}
+
+</table>
